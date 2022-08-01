@@ -42,7 +42,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "prepare": "npm run build && npm run docs",
+    "prepare": "npm run build",
     "pretest": "npm run lint && npm run build",
     "lint": "prettier --check src __tests__ examples \"*.md\"",
     "pretty": "prettier --write src __tests__ examples \"**/*.md\"",
