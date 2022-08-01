@@ -155,6 +155,17 @@ export class Queue extends EventEmitter {
     const timestamp = new Date().getTime() + parseInt(time.toString(), 10);
     return this.enqueueAt(timestamp, q, func, args, suppressDuplicateTaskError);
   }
+  
+  /**
+   * - immediately insert job to the head of queue.
+   */
+  async head(q: string, func: string, args: Array<any> = []) {
+    await this.connection.redis.sadd(this.connection.key("queues"), q);
+    await this.connection.redis.lpush(
+      this.connection.key("queue", q),
+      this.encode(q, func, args)
+    );
+  }
 
   /**
    * - queues is an Array with the names of all your queues
